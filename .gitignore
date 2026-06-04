@@ -1,0 +1,7 @@
+venv
+uploads 
+faiss_index/*
+__pycache__
+*.faiss
+*.pkl
+.env

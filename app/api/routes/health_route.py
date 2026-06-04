@@ -1,0 +1,8 @@
+from fastapi import APIRouter
+
+router=APIRouter()
+
+@router.get("/health")
+def health():
+    return {"status":200,"message":"The API is working "}
+
