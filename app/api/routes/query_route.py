@@ -10,5 +10,8 @@ router=APIRouter()
 
 @router.post("/query",response_model=QueryResponse)
 async def query(request:QueryRequest,vector_store:Optional[FAISS]=Depends(get_vector_store),generator=Depends(get_generator)):
-    answer=query_rag(request.question,vector_store,generator)
+    print(f"[QUERY] vector_store type: {type(vector_store)}")
+    if vector_store:
+        print(f"[QUERY] Index size: {vector_store.index.ntotal}")
+    answer = query_rag(request.question, vector_store, generator,request.source)
     return {"answer":answer}

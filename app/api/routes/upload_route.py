@@ -33,6 +33,7 @@ async def upload_pdf(request:Request,file:UploadFile=File(...),embeddings:Huggin
     try:
         message,updated_store=ingest_pdf(file_path,embeddings,vector_store)
         set_vector_store(request,updated_store)
+        print(f"[UPLOAD] vector_store set. Index size: {updated_store.index.ntotal}")
         return {"message":message,"filename":file.filename}
     finally:
         await file.close()

@@ -16,12 +16,16 @@ def ingest_pdf(file_path:str,embeddings:HuggingFaceEmbeddings,vector_store:Optio
 def query_rag(
     question: str,
     vector_store: Optional[FAISS],
-    generator
+    generator,
+    source_filter:Optional[str]=None
 ) -> str:
     if vector_store is None:
         return "No document ingested yet. Please upload a PDF first."
 
-    docs = search(question, vector_store)
+    docs = search(question, vector_store,6,source_filter)
+    print(f"[RAG] Retrieved {len(docs)} docs")
+    for i, doc in enumerate(docs):
+        print(f"  [{i}] {doc.page_content[:100]!r}")
 
     if not docs:
         return "No relevant content found for your question."

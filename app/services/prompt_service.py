@@ -2,17 +2,13 @@ from langchain_core.documents import Document
 from typing import List
 
 
+# prompt_service.py
 def build_prompt(question: str, docs: List[Document]) -> str:
-    """
-    Build a prompt from the question and retrieved chunks.
-    Structures the context so the model knows exactly what to do.
-    """
     context = _format_context(docs)
-
     return (
-        f"You are a helpful assistant. "
-        f"Answer the question using ONLY the context provided below. "
-        f"If the answer is not in the context, say 'I don't know'.\n\n"
+        f"You are a helpful assistant and NLP/ML expert.\n"
+        f"Use the context below as your primary source. "
+        f"If the context contains partial information, expand on it using your knowledge.\n\n"  
         f"Context:\n{context}\n\n"
         f"Question: {question}\n\n"
         f"Answer:"
@@ -26,6 +22,7 @@ def _format_context(docs: List[Document]) -> str:
     """
     chunks = []
     for i, doc in enumerate(docs, start=1):
+        print(f"[Doc {i}] len={len(doc.page_content)} | preview: {doc.page_content[:200]!r}")
         source = doc.metadata.get("source", "unknown")
         page   = doc.metadata.get("page", "?")
         chunks.append(

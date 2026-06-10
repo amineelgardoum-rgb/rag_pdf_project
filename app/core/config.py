@@ -9,4 +9,4 @@ FAISS_INDEX_DIR = os.getenv("FAISS_INDEX_DIR","faiss_index") # the index fiass f
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL","all-MiniLM-L6-v2") # the embedding model 
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE",1000)) # the chunk size 
 CHUNK_OVERLAP= int (os.getenv("CHUNK_OVERLAP",200)) # the overlap 
-GENERATION_MODEL = os.getenv("GENERATION_MODEL", "google/flan-t5-base")
+GENERATION_MODEL = os.getenv("GENERATION_MODEL", "gemini-2.5-flash")

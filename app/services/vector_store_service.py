@@ -3,6 +3,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 from app.core.config import FAISS_INDEX_DIR
 from typing import List,Optional
+import shutil
 import os 
 
 def load_vector_store(embeddings:HuggingFaceEmbeddings) -> Optional[FAISS]:
@@ -21,23 +22,28 @@ def save_vector_store(vector_store:FAISS) -> None:
     # save the vector to vector database
     vector_store.save_local(FAISS_INDEX_DIR)
 
-def add_chunks(chunks:List[Document],embeddings:HuggingFaceEmbeddings,vector_store:Optional[FAISS]) -> FAISS:
-    """add chunks to the vector database , if there is vectors in the db merge them , else create them!"""
-    new_store=FAISS.from_documents(chunks,embeddings) # try to embed the pdf file
-    if vector_store is not None: # if there is an old embedding FAISS index
-        vector_store.merge_from(new_store) # merge between the two vectors
-        save_vector_store(vector_store) # save the vector to local
-        return vector_store # return the merged vector store 
+def add_chunks(chunks: List[Document], embeddings: HuggingFaceEmbeddings, vector_store: Optional[FAISS]) -> FAISS:
+    # delete old index before creating new one
+    if os.path.exists(FAISS_INDEX_DIR):
+        shutil.rmtree(FAISS_INDEX_DIR)
+        os.makedirs(FAISS_INDEX_DIR)
+    
+    new_store = FAISS.from_documents(chunks, embeddings)
+    save_vector_store(new_store)
+    return new_store
     
     # here is no index is created 
     save_vector_store(new_store)
     return new_store
 
-def search(question: str, vector_store: FAISS, k: int = 3):
+def search(question: str, vector_store: FAISS, k: int = 6, source_filter: Optional[str] = None):
     retriever = vector_store.as_retriever(search_kwargs={"k": k})
-
     docs = retriever.invoke(question)
-    return docs # invoke the retriever 
+    
+    if source_filter:
+        docs = [d for d in docs if source_filter in d.metadata.get("source", "")]
+    
+    return docs
 
 def is_ready(vector_store:Optional[FAISS]) -> bool:
     """Check if the vector database is ready!"""
