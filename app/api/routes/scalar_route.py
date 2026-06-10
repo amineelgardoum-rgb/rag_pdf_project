@@ -5,6 +5,7 @@ router = APIRouter()
 
 @router.get("/docs", include_in_schema=False)
 async def scalar_html(request: Request):
+    print("[INFO] The scalar endpoint is triggered!")
     return get_scalar_api_reference(
         openapi_url=request.app.openapi_url,
         title="My API"

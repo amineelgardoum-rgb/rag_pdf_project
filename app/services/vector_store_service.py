@@ -32,11 +32,9 @@ def add_chunks(chunks: List[Document], embeddings: HuggingFaceEmbeddings, vector
     save_vector_store(new_store)
     return new_store
     
-    # here is no index is created 
-    save_vector_store(new_store)
-    return new_store
+    
 
-def search(question: str, vector_store: FAISS, k: int = 6, source_filter: Optional[str] = None):
+def search(question: str, vector_store: FAISS, k: int = 6, source_filter: Optional[str] = None)->list[Document]:
     retriever = vector_store.as_retriever(search_kwargs={"k": k})
     docs = retriever.invoke(question)
     

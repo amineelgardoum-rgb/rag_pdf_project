@@ -20,6 +20,7 @@ router=APIRouter()
 
 @router.post("/upload",response_model=UploadResponse)
 async def upload_pdf(request:Request,file:UploadFile=File(...),embeddings:HuggingFaceEmbeddings=Depends(get_embeddings),vector_store: Optional[FAISS]=Depends(get_vector_store)):
+    print("[INFO] The upload endpoint is triggered!")
     if not file.filename or not file.filename.endswith(".pdf"):
         raise HTTPException(status_code=400,detail="Only PDF files are accepted!")
     

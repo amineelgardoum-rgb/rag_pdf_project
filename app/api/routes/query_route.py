@@ -10,6 +10,7 @@ router=APIRouter()
 
 @router.post("/query",response_model=QueryResponse)
 async def query(request:QueryRequest,vector_store:Optional[FAISS]=Depends(get_vector_store),generator=Depends(get_generator)):
+    print("[INFO] THe query endpoint is triggered !")
     print(f"[QUERY] vector_store type: {type(vector_store)}")
     if vector_store:
         print(f"[QUERY] Index size: {vector_store.index.ntotal}")
