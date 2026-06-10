@@ -37,7 +37,7 @@ async def upload_pdf(request:Request,file:UploadFile=File(...),embeddings:Huggin
         return {"message":message,"filename":file.filename}
     finally:
         await file.close()
-        # if os.path.exists(file_path):
-        #     os.remove(file_path)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
 
