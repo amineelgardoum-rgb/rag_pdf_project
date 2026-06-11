@@ -84,3 +84,11 @@ This project is licensed under the MIT License.
 - Improved documentation and API explanations.
 - Added file deletion support in the upload router.
 - Fixed embedding issues.
+
+### Demo Video 
+
+### backend 
+![Demo 1](docs/video/2026-06-10%2017-08-39.gif)
+------
+### frontend
+![Demo 2](docs/video/2026-06-11%2015-00-48.gif)
