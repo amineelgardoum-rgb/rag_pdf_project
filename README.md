@@ -1,5 +1,7 @@
 # RAG-based PDF Query API
 
+## Description
+
 This project provides a Retrieval-Augmented Generation (RAG) API built with FastAPI. It allows users to upload PDF documents, ingest them into a vector store (FAISS), and perform intelligent queries against the content of these documents.
 
 ## Features
@@ -12,6 +14,35 @@ This project provides a Retrieval-Augmented Generation (RAG) API built with Fast
 ## Architecture
 
 ![RAG Workflow](docs/RAG/RAG.png)
+
+## Prerequisites
+
+- Python 3.10+
+- Dependencies listed in `requirements.txt`
+
+## Installation and Running
+
+1. **Clone the repository.**
+
+2. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the application:**
+
+   ```bash
+   python -m app.main
+   ```
+
+## Configuration
+
+*(Add details about environment variables or configuration files if applicable)*
+
+## Usage
+
+*(Provide examples of how to interact with the API endpoints)*
 
 ## Project Structure
 
@@ -35,21 +66,17 @@ This project provides a Retrieval-Augmented Generation (RAG) API built with Fast
   - Endpoint: ![Query Endpoint](docs/API/query_endpoint.png)
   - Details: ![Query Details](docs/API/query.png)
 
-## Getting Started
+## Troubleshooting
 
-1. **Clone the repository.**
-2. **Install dependencies:**
+*(Add common issues and their solutions here)*
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Contributing
 
-3. **Run the application:**
+Contributions are welcome! Please open an issue or submit a pull request.
 
-   ```bash
-   # (Assuming main.py is the entry point)
-   python -m app.main
-   ```
+## License
+
+This project is licensed under the MIT License.
 
 ## Recent Updates
 
